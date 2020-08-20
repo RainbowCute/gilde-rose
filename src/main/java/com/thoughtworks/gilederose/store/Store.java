@@ -5,6 +5,7 @@ import com.thoughtworks.gilederose.entity.NormalProduct;
 import com.thoughtworks.gilederose.entity.SpecialProduct;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.apache.commons.collections.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -78,5 +79,12 @@ public class Store {
             return;
         }
         products.add(product);
+    }
+
+    public void addProducts(List<AbstractProduct> abstractProducts) {
+        if (CollectionUtils.isEmpty(abstractProducts)) {
+            return;
+        }
+        products.addAll(abstractProducts);
     }
 }
