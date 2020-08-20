@@ -28,10 +28,18 @@ public class Store {
 
     private void updateQuantity(AbstractProduct product) {
         if (product.getSellIn() < 0) {
-            product.setQuality(product.getQuality().subtract(BigDecimal.valueOf(2)));
+            product.setQuality(calculateQuantity(product.getQuality(), BigDecimal.valueOf(2)));
             return;
         }
-        product.setQuality(product.getQuality().subtract(BigDecimal.ONE));
+        product.setQuality(calculateQuantity(product.getQuality(), BigDecimal.ONE));
+    }
+
+    private BigDecimal calculateQuantity(BigDecimal value1, BigDecimal value2) {
+        BigDecimal value = value1.subtract(value2);
+        if (value.compareTo(BigDecimal.ZERO) < 0) {
+            return BigDecimal.ZERO;
+        }
+        return value;
     }
 
     public void addProduct(AbstractProduct product) {

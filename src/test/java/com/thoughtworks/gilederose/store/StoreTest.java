@@ -43,4 +43,22 @@ public class StoreTest {
         assertEquals(-1, products.get(0).getSellIn());
         assertEquals(BigDecimal.valueOf(8), products.get(0).getQuality());
     }
+
+    @Test
+    public void should_return_sellIn_minus_1_and_quantity_is_0_given_sellIn_is_0_and_quantity_is_1_when_update_normal_product() {
+        AbstractProduct product = NormalProduct.builder()
+                .sellIn(0L)
+                .quality(BigDecimal.ONE)
+                .build();
+        Store store = new Store();
+        store.addProduct(product);
+
+        store.updateProduct();
+
+        List<AbstractProduct> products = store.getProducts();
+
+        assertEquals(1, products.size());
+        assertEquals(-1, products.get(0).getSellIn());
+        assertEquals(BigDecimal.ZERO, products.get(0).getQuality());
+    }
 }
