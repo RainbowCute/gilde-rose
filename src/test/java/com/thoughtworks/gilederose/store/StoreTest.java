@@ -86,4 +86,19 @@ public class StoreTest {
         assertEquals(9, products.get(0).getSellIn());
         assertEquals(BigDecimal.valueOf(12), products.get(0).getQuality());
     }
+
+    @Test
+    public void should_return_sellIn_minus_1_and_quantity_add_3_given_sellIn_is_10_and_quantity_is_10_when_update_special_product() {
+        SpecialProduct product = new SpecialProduct(5L, BigDecimal.valueOf(10));
+        Store store = new Store();
+        store.addProduct(product);
+
+        store.updateProduct();
+
+        List<AbstractProduct> products = store.getProducts();
+
+        assertEquals(1, products.size());
+        assertEquals(4, products.get(0).getSellIn());
+        assertEquals(BigDecimal.valueOf(13), products.get(0).getQuality());
+    }
 }

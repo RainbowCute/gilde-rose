@@ -37,6 +37,10 @@ public class Store {
     }
 
     private void updateSpecialQuantity(AbstractProduct product) {
+        if (product.getSellIn() <= 5) {
+            product.setQuality(calculateQuantity(product.getQuality(), BigDecimal.valueOf(3)));
+            return;
+        }
         if (product.getSellIn() <= 10) {
             product.setQuality(calculateQuantity(product.getQuality(), BigDecimal.valueOf(2)));
             return;
