@@ -1,6 +1,8 @@
 package com.thoughtworks.gilederose.store;
 
 import com.thoughtworks.gilederose.entity.AbstractProduct;
+import com.thoughtworks.gilederose.entity.NormalProduct;
+import com.thoughtworks.gilederose.entity.SpecialProduct;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -27,15 +29,27 @@ public class Store {
     }
 
     private void updateQuantity(AbstractProduct product) {
+        if (product instanceof NormalProduct) {
+            updateNormalQuantity(product);
+        } else if (product instanceof SpecialProduct) {
+            updateSpecialQuantity(product);
+        }
+    }
+
+    private void updateSpecialQuantity(AbstractProduct product) {
+        product.setQuality(calculateQuantity(product.getQuality(), BigDecimal.valueOf(1)));
+    }
+
+    private void updateNormalQuantity(AbstractProduct product) {
         if (product.getSellIn() < 0) {
-            product.setQuality(calculateQuantity(product.getQuality(), BigDecimal.valueOf(2)));
+            product.setQuality(calculateQuantity(product.getQuality(), BigDecimal.valueOf(-2)));
             return;
         }
-        product.setQuality(calculateQuantity(product.getQuality(), BigDecimal.ONE));
+        product.setQuality(calculateQuantity(product.getQuality(), BigDecimal.valueOf(-1)));
     }
 
     private BigDecimal calculateQuantity(BigDecimal value1, BigDecimal value2) {
-        BigDecimal value = value1.subtract(value2);
+        BigDecimal value = value1.add(value2);
         if (value.compareTo(BigDecimal.ZERO) < 0) {
             return BigDecimal.ZERO;
         }

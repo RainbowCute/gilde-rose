@@ -2,6 +2,7 @@ package com.thoughtworks.gilederose.store;
 
 import com.thoughtworks.gilederose.entity.AbstractProduct;
 import com.thoughtworks.gilederose.entity.NormalProduct;
+import com.thoughtworks.gilederose.entity.SpecialProduct;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -60,5 +61,20 @@ public class StoreTest {
         assertEquals(1, products.size());
         assertEquals(-1, products.get(0).getSellIn());
         assertEquals(BigDecimal.ZERO, products.get(0).getQuality());
+    }
+
+    @Test
+    public void should_return_sellIn_minus_1_and_quantity_add_2_given_sellIn_is_10_and_quantity_is_10_when_update_special_product() {
+        SpecialProduct product = new SpecialProduct(15L, BigDecimal.valueOf(10));
+        Store store = new Store();
+        store.addProduct(product);
+
+        store.updateProduct();
+
+        List<AbstractProduct> products = store.getProducts();
+
+        assertEquals(1, products.size());
+        assertEquals(14, products.get(0).getSellIn());
+        assertEquals(BigDecimal.valueOf(11), products.get(0).getQuality());
     }
 }
