@@ -17,9 +17,21 @@ public class Store {
 
     public void updateProduct() {
         products.forEach(item -> {
-            item.setSellIn(item.getSellIn() - 1);
-            item.setQuality(item.getQuality().subtract(BigDecimal.ONE));
+            updateSellIn(item);
+            updateQuantity(item);
         });
+    }
+
+    private void updateSellIn(AbstractProduct product) {
+        product.setSellIn(product.getSellIn() - 1);
+    }
+
+    private void updateQuantity(AbstractProduct product) {
+        if (product.getSellIn() < 0) {
+            product.setQuality(product.getQuality().subtract(BigDecimal.valueOf(2)));
+            return;
+        }
+        product.setQuality(product.getQuality().subtract(BigDecimal.ONE));
     }
 
     public void addProduct(AbstractProduct product) {
