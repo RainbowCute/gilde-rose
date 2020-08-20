@@ -88,7 +88,7 @@ public class StoreTest {
     }
 
     @Test
-    public void should_return_sellIn_minus_1_and_quantity_add_3_given_sellIn_is_10_and_quantity_is_10_when_update_special_product() {
+    public void should_return_sellIn_minus_1_and_quantity_add_3_given_sellIn_is_5_and_quantity_is_10_when_update_special_product() {
         SpecialProduct product = new SpecialProduct(5L, BigDecimal.valueOf(10));
         Store store = new Store();
         store.addProduct(product);
@@ -100,5 +100,20 @@ public class StoreTest {
         assertEquals(1, products.size());
         assertEquals(4, products.get(0).getSellIn());
         assertEquals(BigDecimal.valueOf(13), products.get(0).getQuality());
+    }
+
+    @Test
+    public void should_return_sellIn_minus_1_and_quantity_is_0_given_sellIn_is_0_and_quantity_is_10_when_update_special_product() {
+        SpecialProduct product = new SpecialProduct(0L, BigDecimal.valueOf(10));
+        Store store = new Store();
+        store.addProduct(product);
+
+        store.updateProduct();
+
+        List<AbstractProduct> products = store.getProducts();
+
+        assertEquals(1, products.size());
+        assertEquals(-1, products.get(0).getSellIn());
+        assertEquals(BigDecimal.ZERO, products.get(0).getQuality());
     }
 }

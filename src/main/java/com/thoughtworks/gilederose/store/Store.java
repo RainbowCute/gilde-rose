@@ -19,8 +19,8 @@ public class Store {
 
     public void updateProduct() {
         products.forEach(item -> {
-            updateSellIn(item);
             updateQuantity(item);
+            updateSellIn(item);
         });
     }
 
@@ -37,6 +37,10 @@ public class Store {
     }
 
     private void updateSpecialQuantity(AbstractProduct product) {
+        if (product.getSellIn() <= 0) {
+            product.setQuality(calculateQuantity(product.getQuality(), BigDecimal.ZERO.subtract(product.getQuality())));
+            return;
+        }
         if (product.getSellIn() <= 5) {
             product.setQuality(calculateQuantity(product.getQuality(), BigDecimal.valueOf(3)));
             return;
@@ -49,7 +53,7 @@ public class Store {
     }
 
     private void updateNormalQuantity(AbstractProduct product) {
-        if (product.getSellIn() < 0) {
+        if (product.getSellIn() <= 0) {
             product.setQuality(calculateQuantity(product.getQuality(), BigDecimal.valueOf(-2)));
             return;
         }
