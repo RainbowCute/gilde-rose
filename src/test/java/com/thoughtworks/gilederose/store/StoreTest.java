@@ -29,10 +29,7 @@ public class StoreTest {
 
     @Test
     public void should_return_sellIn_minus_1_and_quantity_minus_2_given_sellIn_is_0_and_quantity_is_10_when_update_normal_product() {
-        AbstractProduct product = NormalProduct.builder()
-                .sellIn(0L)
-                .quality(BigDecimal.valueOf(10))
-                .build();
+        NormalProduct product = new NormalProduct(0L, BigDecimal.valueOf(10));
         Store store = new Store();
         store.addProduct(product);
 
@@ -47,10 +44,7 @@ public class StoreTest {
 
     @Test
     public void should_return_sellIn_minus_1_and_quantity_is_0_given_sellIn_is_0_and_quantity_is_1_when_update_normal_product() {
-        AbstractProduct product = NormalProduct.builder()
-                .sellIn(0L)
-                .quality(BigDecimal.ONE)
-                .build();
+        NormalProduct product = new NormalProduct(0L, BigDecimal.ONE);
         Store store = new Store();
         store.addProduct(product);
 
