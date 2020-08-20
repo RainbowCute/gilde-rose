@@ -32,3 +32,8 @@ then：特殊商品，sellIn = 4， quantity = 13
 given：特殊商品，sellIn = 0， quantity = 10
 when：更新库存时
 then：特殊商品，sellIn = -1， quantity = 0
+
+8.
+given：特殊商品，sellIn = 5， quantity = 49
+when：更新库存时
+then：特殊商品，sellIn = 4， quantity = 50

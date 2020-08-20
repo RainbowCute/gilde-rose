@@ -116,4 +116,19 @@ public class StoreTest {
         assertEquals(-1, products.get(0).getSellIn());
         assertEquals(BigDecimal.ZERO, products.get(0).getQuality());
     }
+
+    @Test
+    public void should_return_sellIn_minus_1_and_quantity_is_50_given_sellIn_is_5_and_quantity_is_49_when_update_special_product() {
+        SpecialProduct product = new SpecialProduct(5L, BigDecimal.valueOf(49));
+        Store store = new Store();
+        store.addProduct(product);
+
+        store.updateProduct();
+
+        List<AbstractProduct> products = store.getProducts();
+
+        assertEquals(1, products.size());
+        assertEquals(4, products.get(0).getSellIn());
+        assertEquals(BigDecimal.valueOf(50), products.get(0).getQuality());
+    }
 }

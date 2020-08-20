@@ -15,6 +15,8 @@ import java.util.Objects;
 @Getter
 public class Store {
 
+    private static final BigDecimal MIN_QUANTITY = BigDecimal.ZERO;
+    private static final BigDecimal MAX_QUANTITY = BigDecimal.valueOf(50);
     private final List<AbstractProduct> products = new ArrayList<>();
 
     public void updateProduct() {
@@ -62,8 +64,11 @@ public class Store {
 
     private BigDecimal calculateQuantity(BigDecimal value1, BigDecimal value2) {
         BigDecimal value = value1.add(value2);
-        if (value.compareTo(BigDecimal.ZERO) < 0) {
-            return BigDecimal.ZERO;
+        if (value.compareTo(MIN_QUANTITY) < 0) {
+            return MIN_QUANTITY;
+        }
+        if (value.compareTo(MAX_QUANTITY) > 0) {
+            return MAX_QUANTITY;
         }
         return value;
     }
